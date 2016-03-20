@@ -1,0 +1,31 @@
+
+allprojects {
+
+  apply plugin: 'idea'
+  group = "${group}"
+  version = "${version}"
+
+  task wrapper(type: Wrapper) {
+  	gradleVersion = "${gradleVersion}"
+  }
+}
+
+subprojects {
+
+  apply plugin: 'java'
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  [compileJava, compileTestJava]*.options*.encoding = "${defaultEncoding}"
+
+          idea {
+    module {
+      inheritOutputDirs = false
+      outputDir = file("$buildDir/classes/main/")
+    }
+  }
+
+  repositories {
+     mavenCentral()
+  }
+}
