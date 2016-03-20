@@ -18,7 +18,7 @@ subprojects {
   targetCompatibility = 1.8
   [compileJava, compileTestJava]*.options*.encoding = "${defaultEncoding}"
 
-          idea {
+  idea {
     module {
       inheritOutputDirs = false
       outputDir = file("$buildDir/classes/main/")

@@ -7,12 +7,14 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementPluginVersion}"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
 
 repositories {
 	mavenCentral()
@@ -20,9 +22,17 @@ repositories {
 	maven { url "https://repo.spring.io/milestone" }
 }
 
+// Spring io platformで依存関係のあるlibraryを最新版に保つ
+// http://docs.spring.io/platform/docs/current/reference/htmlsingle/#appendix-dependency-versions
+dependencyManagement {
+    imports {
+        mavenBom "io.spring.platform:platform-bom:${platformBomVersion}"
+    }
+}
+
 dependencies {
     compile project(":common-utils")
-    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web"
 
     testCompile "junit:junit:4.11"
 }
